@@ -1,12 +1,18 @@
 <?php
 /**
- * Loading different classes
+ * Load helpers and classes
  */
 require_once('./helpers/JsonReader.php');
 require_once('./Student.php');
 require_once('./Assessment.php');
 require_once('./Question.php');
 require_once('./StudentResponse.php');
+
+// Beginning of application
+/**
+ * Main 
+ */
+start();
 
  /**
   * Get input from user and give response based on csv file
@@ -28,15 +34,15 @@ function start() {
         case 1:
             echo "Diagnostic selected \n";
             diagnostic($studentId);
-            exit;
+            start();
         case 2:
             echo "Progress selected \n";
             progressReport($studentId);
-            exit;
+            start();
         case 3:
             echo "Feedback selected \n";
             feedback($studentId);
-            exit;
+            start();
         default:
         exit;
     }
@@ -100,10 +106,6 @@ function diagnostic($studentId) {
     echo $studentResponses[0]['completed']."\n";
     // WIP
     // echo date('F j Y h:i:s', strtotime($studentResponses[0]['started']))."\n";
-
-    // $questions = $questions->getQuestionsByStudentId($studentId);
-    // print_r($studentResponses);
-    // exit;
     foreach($studentResponses as $studentResponse){
         foreach($studentResponse['responses'] as $response){
             // get question
@@ -128,10 +130,6 @@ function diagnostic($studentId) {
                 }
                 $totalStatisticsQ += 1;
             }
-            
-            // switch($question['strand']){
-
-            // }
         }
 
     }
@@ -181,12 +179,4 @@ function feedback($studentId) {
         }
     }
 }
-
-
-// Beginning of application
-/**
- * Main 
- */
-start();
-
 ?>
